@@ -33,8 +33,11 @@ class StoreTenancyRegisterRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        $parent = parse_url((string) config('app.url'), PHP_URL_HOST) ?: 'localhost';
+
         $this->merge([
-           'domain' => $this->domain . '.' . config('tenancy.central_domains')[1]
+            // 'domain' => $this->domain . '.' . config('tenancy.central_domains')[1]
+            'domain' => $this->domain . '.' . $parent,
         ]);
     }
 }
